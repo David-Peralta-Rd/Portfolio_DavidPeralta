@@ -1,0 +1,20 @@
+{
+  "name": "David Peralta",
+  "role": "Programador",
+  "tagline": "Pendiente: una línea sobre lo que haces.",
+  "bio": "Pendiente: 2-3 frases sobre ti.",
+  "avatar": null,
+  "cv_url": null,
+  "sections": {
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "skills": "Habilidades",
+    "contact": "Contacto"
+  },
+  "links": [
+    { "label": "GitHub", "url": "https://github.com/" }
+  ],
+  "skill_groups": [
+    { "name": "Lenguajes", "items": ["Python"] }
+  ]
+}
