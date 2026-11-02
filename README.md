@@ -33,4 +33,4 @@ Portfolio_DavidPeralta/
 
 ## Cómo correrlo
 
-### [Portafolio David Peralta](https://github.com/David-Peralta-Rd/cr-B2C_MercyVentas) - Github Pages.
+### [Portafolio David Peralta](https://david-peralta-rd.github.io/Portfolio_DavidPeralta/) - Github Pages.
