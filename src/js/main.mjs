@@ -1,11 +1,24 @@
-// hola mundo: muestra el nombre leído del JSON
 import { loadJson } from "./data.mjs";
+import { renderProfile } from "./render_profile.mjs";
+import { renderSkills } from "./render_skills.mjs";
+import { renderProjects } from "./render_projects.mjs";
 
-const el = document.getElementById("name");
+const app = document.getElementById("app");
+const profileRoot = document.getElementById("profile");
+const skillsRoot = document.getElementById("skills");
+const projectsRoot = document.getElementById("projects");
+
 try {
-  const profile = await loadJson("src/data/profile.json");
-  el.textContent = profile.name;
+  const [profile, projectsFile] = await Promise.all([
+    loadJson("src/data/profile.json"),
+    loadJson("src/data/projects.json"),
+  ]);
+  renderProfile(profile, profileRoot);
+  renderSkills(profile.skills, skillsRoot);
+  renderProjects(projectsFile.projects, projectsRoot);
 } catch (err) {
-  el.textContent = "No se pudo cargar el perfil";
+  const msg = document.createElement("p");
+  msg.textContent = "No se pudo cargar el portafolio.";
+  app.appendChild(msg);
   console.error(err);
 }
