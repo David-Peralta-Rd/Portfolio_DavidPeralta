@@ -54,6 +54,7 @@ Propósito: lista de proyectos de la sección Proyectos.
 | repo_url | string | requerido, empieza con `https://` | — |
 | demo_url | string o null | default null; si existe, empieza con `https://` | — |
 | order | integer | requerido, ≥ 1; orden ascendente | Array.prototype.sort |
+| featured | boolean | opcional, default false; máximo 3 proyectos con true en el archivo | Array.prototype.filter, límites de negocio en validador |
 
 ## d) Reservadas
 Ninguna.
