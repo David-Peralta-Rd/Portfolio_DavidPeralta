@@ -1,9 +1,38 @@
 {
   "name": "David Peralta",
-  "role": "Desarrollador de software",
-  "tagline": "Construyo cosas simples que funcionan.",
-  "about": "Texto de ejemplo; reemplazar en T04.",
+  "role": "Desarrollador Backend (Python) · Integración de IA",
+  "tagline": "Código profesional y estructura limpia, es mi hobby.",
+  "about": "Diseño servicios backend desacoplados con Python, Django y PostgreSQL, los empaqueto con Docker y los opero sobre Linux, mi sistema principal desde marzo de 2025 (instalación directa, sin máquinas virtuales). Mi diferenciador es la IA aplicada: construyo agentes que resuelven trabajo real de ingeniería y ejecuto modelos de lenguaje con opencode, trabajando junto a la IA y avanzando para el mundo.",
   "avatar": null,
-  "links": [{ "label": "GitHub", "url": "https://github.com/" }],
-  "skills": [{ "group": "Lenguajes", "items": ["Python", "JavaScript"] }]
+  "links": [
+    {
+      "label": "GitHub",
+      "url": "https://github.com/David-Peralta-Rd"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/david-peralta-380652366/"
+    }
+  ],
+  "skills": [
+    {
+      "group": "Lenguajes",
+      "items": [
+        "Python",
+        "Bash"
+      ]
+    },
+    {
+      "group": "Stack",
+      "items": [
+        "PostgreSQL",
+        "Docker",
+        "Linux",
+        "Bash",
+        "llama.cpp",
+        "Git",
+        "Opencode"
+      ]
+    }
+  ]
 }

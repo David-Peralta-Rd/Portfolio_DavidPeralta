@@ -1,13 +1,46 @@
 {
   "projects": [
     {
-      "id": "proyecto-ejemplo",
-      "name": "Proyecto de ejemplo",
-      "summary": "Descripción corta; reemplazar en T04.",
-      "tags": ["python"],
-      "repo_url": "https://github.com/",
+      "id": "B2C_MercyVentas_DavidPeralta",
+      "name": "B2C_MercyVentas",
+      "summary": "Tienda de logística para productos y administración de ganancias.",
+      "tags": [
+        "Python",
+        "Django",
+        "PostgreSQL 18",
+        "Docker"
+      ],
+      "repo_url": "https://github.com/David-Peralta-Rd/B2C_MercyVentas_DavidPeralta",
       "demo_url": null,
       "order": 1
+    },
+    {
+      "id": "MinimalistDots_DavidPeralta",
+      "name": "MinimalistDots",
+      "summary": "Dotfiles minimalistas para Hyprland sobre Arch Linux (o derivadas), con instalación automatizada, paleta de colores unificada y configuración modular escrita en Lua",
+      "tags": [
+        "Linux",
+        "Bash",
+        "Lua",
+        "QML",
+        "Hyprland"
+      ],
+      "repo_url": "https://github.com/David-Peralta-Rd/MinimalistDots",
+      "demo_url": null,
+      "order": 2
+    },
+    {
+      "id": "Ecommerce-Project-for-Work-at-Sena_DavidPeralta",
+      "name": "Ecommerce-Project-for-Work-at-Sena",
+      "summary": "This would be my project for a SENA project. I clarify that this is a project that I do not guarantee its serious use. It's simple and to the point.",
+      "tags": [
+        "Python",
+        "Django",
+        "HTML and CSS"
+      ],
+      "repo_url": "https://github.com/David-Peralta-Rd/Ecommerce-Project-for-Work-at-Sena",
+      "demo_url": null,
+      "order": 3
     }
   ]
 }
