@@ -12,7 +12,8 @@
       ],
       "repo_url": "https://github.com/David-Peralta-Rd/B2C_MercyVentas_DavidPeralta",
       "demo_url": null,
-      "order": 1
+      "order": 1,
+      "featured": true
     },
     {
       "id": "MinimalistDots_DavidPeralta",
@@ -27,7 +28,8 @@
       ],
       "repo_url": "https://github.com/David-Peralta-Rd/MinimalistDots",
       "demo_url": null,
-      "order": 2
+      "order": 2,
+      "featured": false
     },
     {
       "id": "Ecommerce-Project-for-Work-at-Sena_DavidPeralta",
@@ -40,7 +42,8 @@
       ],
       "repo_url": "https://github.com/David-Peralta-Rd/Ecommerce-Project-for-Work-at-Sena",
       "demo_url": null,
-      "order": 3
+      "order": 3,
+      "featured": false
     }
   ]
 }
