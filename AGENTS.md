@@ -1,7 +1,7 @@
 # AGENTS.md — Portfolio_DavidPeralta
 
 ## Proyecto
-<una línea: qué es y para quién>
+Un portafolio de programador que se actualice editando datos (JSON), sin riesgo de romper el código.fr
 
 # AGENTS.md
 
