@@ -1,28 +1,27 @@
-# Portfolio_DavidPeralta: SPEC
+# SPEC.md — Portfolio_DavidPeralta
 
 ## Problema
-Un programador necesita una carta de presentación pública, bonita y fácil de mantener, donde el contenido se edite sin riesgo de romper el código.
+Un portafolio de programador que se actualice editando datos (JSON), sin riesgo de romper el código.
 
 ## Usuarios
-- Reclutadores y empresas que revisan perfil y proyectos en pocos minutos.
-- Colegas y clientes que llegan por un enlace.
-- Yo (David), que edito perfil y proyectos solo en JSON.
+- Reclutadores y clientes: ven perfil, habilidades y proyectos en móvil o escritorio.
+- David: edita `src/data/*.json` y hace push.
 
 ## Dentro de alcance (v1)
-- Una página con 4 secciones: Sobre mí, Proyectos, Habilidades, Contacto.
-- Estilo minimalista con "ventanas" tipo macOS: barra de título con 3 puntos y bordes redondeados.
-- Diseño responsivo (móvil primero).
-- Contenido en `src/data/profile.json` y `src/data/projects.json`; el JS solo lo renderiza.
-- Script de validación de los JSON.
-- Publicado en GitHub Pages.
+- Página única con secciones Perfil, Habilidades, Proyectos y Contacto.
+- Estilo minimalista con ventanas tipo macOS; responsive (móvil, tablet, escritorio).
+- Contenido leído de `src/data/profile.json` y `src/data/projects.json`.
+- Validador de JSON con código de salida.
+- Metadatos básicos (description, Open Graph).
+- Publicación en GitHub Pages.
 
 ## Fuera de alcance
-Backend, base de datos, formulario de contacto, blog, CMS, modo oscuro, multilenguaje, animaciones complejas, analítica, frameworks JS, npm y build.
+Backend, BD, CMS, blog, formulario de contacto, i18n, animaciones complejas, botón de tema, analítica, framework JS, bundler, dominio propio.
 
 ## Criterios de aceptación
-1. Editar un proyecto en `projects.json` y recargar la página lo refleja sin tocar ningún `.js`.
-2. `python3 src/scripts/validate_data.py` sale con 0 con los datos reales y con 1 si falta un campo obligatorio.
-3. Ninguna línea de `src/js/` contiene texto personal, ni enlaces, ni uso de `innerHTML`.
-4. Sin scroll horizontal a 360 px; se ve bien a 768 px y a 1280 px.
-5. Lighthouse (móvil): Accessibility ≥ 90 y Best Practices ≥ 90.
-6. La URL de GitHub Pages carga con las rutas relativas correctas, sin errores 404 en consola.
+1. `uv run --no-project src/scripts/validate_data.py` termina en 0.
+2. Cambiar un texto o añadir un proyecto en el JSON se refleja al recargar, sin editar `.mjs`.
+3. A 360, 768 y 1280 px no hay scroll horizontal y nada se superpone.
+4. Lighthouse móvil: Performance ≥ 90 y Accessibility ≥ 90.
+5. Si un JSON falla al cargar, la página muestra un mensaje visible, no una pantalla vacía.
+6. Todo enlace externo lleva `rel="noopener noreferrer"`.

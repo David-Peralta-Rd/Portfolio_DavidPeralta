@@ -1,158 +1,132 @@
 #!/usr/bin/env bash
-# Ejecutar desde la raíz del repo: bash scaffold.sh
+# scaffold: crea el esqueleto del portafolio; no sobrescribe nada existente
 set -euo pipefail
 
-command -v uv >/dev/null || { echo "Falta uv: https://docs.astral.sh/uv/ (verifica con: uv --version)"; exit 1; }
+put() { # put <ruta>: escribe stdin solo si el archivo no existe
+  if [ -e "$1" ]; then echo "skip  $1"; cat >/dev/null; return; fi
+  mkdir -p "$(dirname "$1")"; cat > "$1"; echo "creó  $1"
+}
 
-[ -e .gitignore ] || printf '.DS_Store\n__pycache__/\n*.pyc\n.env\n.venv/\n' > .gitignore
-[ -e .gitattributes ] || printf '* text=auto\n*.sh text eol=lf\n*.py text eol=lf\n' > .gitattributes
+put .gitignore <<'EOF'
+.venv/
+__pycache__/
+.DS_Store
+EOF
 
-mkdir -p src/css src/js/render src/data src/assets/img src/scripts docs/adr
-[ -e src/assets/img/.gitkeep ] || touch src/assets/img/.gitkeep
+put .gitattributes <<'EOF'
+*.sh text eol=lf
+EOF
 
-# index.html en la raíz (lo exige GitHub Pages) apuntando a src/
-[ -e index.html ] || cat > index.html <<'EOF'
+mkdir -p src/css src/js src/data src/assets/img src/scripts docs/adr
+
+put index.html <<'EOF'
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portfolio_DavidPeralta</title>
-  <link rel="stylesheet" href="./src/css/styles.css">
-  <link rel="stylesheet" href="./src/css/sections.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>David Peralta — Portafolio</title>
+<link rel="stylesheet" href="src/css/base.css">
+<link rel="stylesheet" href="src/css/layout.css">
+<link rel="stylesheet" href="src/css/components.css">
 </head>
 <body>
-  <main id="app"><p>Cargando…</p></main>
-  <script type="module" src="./src/js/main.js"></script>
+<main id="app">
+  <section class="window">
+    <div class="window__bar"><span></span><span></span><span></span></div>
+    <div class="window__body"><h1 id="name">Cargando…</h1></div>
+  </section>
+</main>
+<noscript>Activa JavaScript para ver el portafolio.</noscript>
+<script type="module" src="src/js/main.mjs"></script>
 </body>
 </html>
 EOF
 
-[ -e src/css/styles.css ] || cat > src/css/styles.css <<'EOF'
-/* scaffold: hola mundo; T04 lo reemplaza */
-:root {
-  --bg: #f5f5f7;
-  --text: #1d1d1f;
-  --muted: #6e6e73;
-  --border: #d2d2d7;
-  --radius: 12px;
+put src/css/base.css <<'EOF'
+/* tokens mínimos; se afinan en T02 */
+:root { --bg:#fafafa; --fg:#1c1c1e; --border:#d8d8dc; --radius:12px; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#161618; --fg:#f2f2f4; --border:#3a3a3e; }
 }
 * { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+body { margin:0; background:var(--bg); color:var(--fg);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height:1.5; }
+EOF
+
+put src/css/layout.css <<'EOF'
+/* contenedor central; la rejilla responsive se hace en T10 */
+main { max-width: 960px; margin: 0 auto; padding: clamp(16px, 4vw, 48px); }
+EOF
+
+put src/css/components.css <<'EOF'
+/* marco tipo mac; se afina en T03 */
+.window { border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+.window__bar { display:flex; gap:6px; padding:10px 12px; border-bottom:1px solid var(--border); }
+.window__bar span { width:10px; height:10px; border-radius:50%; background:var(--border); }
+.window__body { padding:16px 20px; }
+EOF
+
+put src/js/data.mjs <<'EOF'
+// carga un JSON relativo a la raíz del sitio
+export async function loadJson(path) {
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
+  return res.json();
 }
 EOF
 
-[ -e src/css/sections.css ] || printf '/* scaffold: T12 lo llena */\n' > src/css/sections.css
+put src/js/main.mjs <<'EOF'
+// hola mundo: muestra el nombre leído del JSON
+import { loadJson } from "./data.mjs";
 
-[ -e src/js/main.js ] || cat > src/js/main.js <<'EOF'
-// scaffold: hola mundo; T13 lo reemplaza
-const url = new URL('../data/profile.json', import.meta.url);
-const app = document.getElementById('app');
+const el = document.getElementById("name");
 try {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('HTTP ' + res.status);
-  const profile = await res.json();
-  const h1 = document.createElement('h1');
-  h1.textContent = profile.name;
-  app.replaceChildren(h1);
+  const profile = await loadJson("src/data/profile.json");
+  el.textContent = profile.name;
 } catch (err) {
+  el.textContent = "No se pudo cargar el perfil";
   console.error(err);
-  app.textContent = 'No se pudieron cargar los datos.';
 }
 EOF
 
-[ -e src/data/profile.json ] || cat > src/data/profile.json <<'EOF'
+put src/data/profile.json <<'EOF'
 {
   "name": "David Peralta",
-  "role": "Programador",
-  "tagline": "Pendiente: una línea sobre lo que haces.",
-  "bio": "Pendiente: 2-3 frases sobre ti.",
+  "role": "Desarrollador de software",
+  "tagline": "Construyo cosas simples que funcionan.",
+  "about": "Texto de ejemplo; reemplazar en T04.",
   "avatar": null,
-  "cv_url": null,
-  "sections": {
-    "about": "Sobre mí",
-    "projects": "Proyectos",
-    "skills": "Habilidades",
-    "contact": "Contacto"
-  },
-  "links": [
-    { "label": "GitHub", "url": "https://github.com/" }
-  ],
-  "skill_groups": [
-    { "name": "Lenguajes", "items": ["Python"] }
-  ]
+  "links": [{ "label": "GitHub", "url": "https://github.com/" }],
+  "skills": [{ "group": "Lenguajes", "items": ["Python", "JavaScript"] }]
 }
 EOF
 
-[ -e src/data/projects.json ] || cat > src/data/projects.json <<'EOF'
+put src/data/projects.json <<'EOF'
 {
   "projects": [
     {
-      "id": "ejemplo",
-      "title": "Proyecto de ejemplo",
-      "summary": "Pendiente: qué hace y para quién.",
-      "tech": ["Python"],
-      "url_repo": null,
-      "url_demo": null,
-      "image": null,
-      "year": 2026,
-      "order": 1,
-      "featured": false
+      "id": "proyecto-ejemplo",
+      "name": "Proyecto de ejemplo",
+      "summary": "Descripción corta; reemplazar en T04.",
+      "tags": ["python"],
+      "repo_url": "https://github.com/",
+      "demo_url": null,
+      "order": 1
     }
   ]
 }
 EOF
 
-# scaffold: servidor local como script de uv (PEP 723).
-# El encabezado lo genera `uv init --script`; solo se reemplaza el cuerpo.
-if [ ! -e src/scripts/serve.py ]; then
-  uv init --script src/scripts/serve.py
-  awk '/^# \/\/\//{c++} {print} c==2{exit}' src/scripts/serve.py > src/scripts/.serve_header
-  { cat src/scripts/.serve_header; cat <<'EOF'
-"""Servidor local de desarrollo (no se usa en GitHub Pages)."""
-import http.server
-import sys
-import webbrowser
-from functools import partial
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[2]
-
-
-class Handler(http.server.SimpleHTTPRequestHandler):
-    def end_headers(self) -> None:
-        self.send_header("Cache-Control", "no-store")  # los cambios se ven al recargar
-        super().end_headers()
-
-
-def main() -> None:
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
-    handler = partial(Handler, directory=str(ROOT))
-    server = http.server.ThreadingHTTPServer(("127.0.0.1", port), handler)
-    url = f"http://localhost:{port}/"
-    print(f"Sirviendo {ROOT} en {url} (Ctrl+C para parar)")
-    webbrowser.open(url)
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        pass
-
-
-if __name__ == "__main__":
-    main()
-EOF
-  } > src/scripts/serve.py
-  rm src/scripts/.serve_header
-fi
+for f in render_profile render_skills render_projects; do
+  [ -e "src/js/$f.mjs" ] || { : > "src/js/$f.mjs"; echo "creó  src/js/$f.mjs"; }
+done
+[ -e src/scripts/validate_data.py ] || { : > src/scripts/validate_data.py; echo "creó  src/scripts/validate_data.py"; }
+touch src/assets/img/.gitkeep docs/adr/.gitkeep
 
 echo
-echo "Listo. Servidor local rápido (desde la raíz):"
-echo "  uv run src/scripts/serve.py          # puerto 8000 y abre el navegador"
-echo "  uv run src/scripts/serve.py 9000     # otro puerto"
-echo "Verificar datos (existe desde la tarea T03):"
-echo "  python3 src/scripts/validate_data.py"
-echo "Publicar: git push a main y activar Settings > Pages > Deploy from a branch > main /(root)"
+echo "Servir en local (desde la raíz; fetch no funciona con file://):"
+echo "  python3 -m http.server 8000   → http://localhost:8000"
+echo "Validar datos:"
+echo "  uv run --no-project src/scripts/validate_data.py"
+echo "Publicar: push a main y Settings → Pages → Branch: main / (root)"

@@ -5,30 +5,30 @@ Portafolio para programadores.
 ## Estructura de carpetas.
 ```text
 Portfolio_DavidPeralta/
-├─ index.html                 # EXCEPCIÓN de raíz: lo exige Pages; carga ./src/...
-├─ AGENTS.md  CLAUDE.md  SPEC.md  tasks.md  README.md
-├─ .gitignore  .gitattributes  scaffold.sh
-├─ docs/
-│  ├─ DATA_MODEL.md
-│  └─ adr/
-└─ src/
-   ├─ css/
-   │  ├─ styles.css           # tokens (:root), ventana mac (.window), base
-   │  └─ sections.css         # layout de secciones y media queries
-   ├─ js/
-   │  ├─ main.js              # carga datos, arma la página, maneja errores
-   │  ├─ data.js              # loadJson(fileName)
-   │  └─ render/
-   │     ├─ hero.js           # renderHero(profile)
-   │     ├─ projects.js       # renderProjects(projects, title)
-   │     ├─ skills.js         # renderSkills(skillGroups, title)
-   │     └─ contact.js        # renderContact(links, title)
-   ├─ data/
-   │  ├─ profile.json         # perfil, secciones, enlaces, habilidades
-   │  └─ projects.json        # lista de proyectos
-   ├─ assets/img/             # fotos y capturas (.gitkeep al inicio)
-   └─ scripts/
-      └─ validate_data.py     # valida los JSON (solo stdlib)
+├── index.html                 # Página real; referencia src/css, src/js y src/data
+├── AGENTS.md  CLAUDE.md  SPEC.md  tasks.md  README.md
+├── .gitignore  .gitattributes
+├── scaffold.sh                # Crea todo lo de abajo
+├── docs/
+│   ├── DATA_MODEL.md          # Esquema de los JSON
+│   └── adr/                   # Decisiones
+└── src/
+    ├── css/
+    │   ├── base.css           # Tokens (colores, radio, fuente) y reset
+    │   ├── layout.css         # Rejilla y media queries (móvil primero)
+    │   └── components.css     # .window (marco tipo mac), .tag, botones
+    ├── js/
+    │   ├── main.mjs           # Orquesta: carga datos y llama a los render
+    │   ├── data.mjs           # loadJson(path): fetch + validación de respuesta
+    │   ├── render_profile.mjs # renderProfile(profile, root)
+    │   ├── render_skills.mjs  # renderSkills(skills, root)
+    │   └── render_projects.mjs# renderProjects(projects, root)
+    ├── data/
+    │   ├── profile.json       # Contenido: perfil, links, habilidades
+    │   └── projects.json      # Contenido: proyectos
+    ├── assets/img/            # Avatar y capturas
+    └── scripts/
+        └── validate_data.py   # Valida los JSON (exit 0 = ok)
 ```
 
 ## Cómo correrlo

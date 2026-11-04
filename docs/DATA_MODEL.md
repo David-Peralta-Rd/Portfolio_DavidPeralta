@@ -1,64 +1,65 @@
-# DATA_MODEL: Portfolio_DavidPeralta
+# docs/DATA_MODEL.md
 
-No hay base de datos: el "modelo" son dos archivos JSON. Las columnas base (id, created_at, updated_at) no aplican. Solo `projects[].id` es un slug.
-La regla "copiar valores que cambian" tampoco aplica, porque no hay histórico.
+No hay base de datos: el "modelo" son 2 archivos JSON en `src/data/`. Todos los textos se insertan con `textContent` (nunca `innerHTML`).
 
 ## a) Diagrama
+
 ```mermaid
 erDiagram
-    PROFILE ||--o{ LINK : tiene
-    PROFILE ||--o{ SKILL_GROUP : agrupa
-    PROFILE ||--|| SECTIONS : titula
-    PROJECTS_FILE ||--o{ PROJECT : contiene
-    PROJECT ||--o{ TECH_TAG : usa
+  PROFILE ||--o{ LINK : "links[]"
+  PROFILE ||--o{ SKILL_GROUP : "skills[]"
+  PROJECTS_FILE ||--o{ PROJECT : "projects[]"
+  PROJECT ||--o{ TAG : "tags[]"
 ```
 
-## b) `src/data/profile.json` (objeto raíz)
-| Campo | Tipo | Reglas | Para investigar |
+## b) Campos base
+No aplica: sin BD no hay id/created_at/updated_at globales. Cada proyecto lleva su propio `id`.
+
+## c) Entidades
+
+### profile (archivo `src/data/profile.json`, objeto raíz)
+Propósito: datos de la persona y secciones Perfil, Habilidades y Contacto.
+
+| Campo | Tipo | Parámetros | Para investigar |
 |---|---|---|---|
-| name | string | Obligatorio, no vacío, ≤ 60 | JSON string, UTF-8 |
-| role | string | Obligatorio, ≤ 60 | |
-| tagline | string | Obligatorio, ≤ 140 | |
-| bio | string | Obligatorio, ≤ 600 | |
-| avatar | string o null | Ruta relativa bajo `src/assets/img/`, el archivo debe existir | ruta relativa vs absoluta en Pages |
-| cv_url | string o null | Empieza por `https://` (reservado) | |
-| sections | object | Claves obligatorias: about, projects, skills, contact (strings ≤ 30) | |
-| links | array de LINK | ≥ 1 elemento | |
-| skill_groups | array de SKILL_GROUP | ≥ 1 elemento | |
+| name | string | requerido, 1–60 caracteres | textContent |
+| role | string | requerido, ≤ 60 | — |
+| tagline | string | requerido, ≤ 140 | — |
+| about | string | requerido, ≤ 600 | — |
+| avatar | string o null | ruta relativa `src/assets/img/...`, default null | rutas relativas en GitHub Pages, loading="lazy" |
+| links | array de link | requerido, ≥ 1 | rel noopener noreferrer |
+| skills | array de skill_group | requerido, ≥ 1 | — |
 
-Reservados (nulables): `avatar` (foto opcional) y `cv_url` (PDF de CV a futuro).
-
-### LINK (elemento de `links`)
-| Campo | Tipo | Reglas | Para investigar |
+### link (elemento de `profile.links`)
+| Campo | Tipo | Parámetros | Para investigar |
 |---|---|---|---|
-| label | string | Obligatorio, ≤ 30 | |
-| url | string | Empieza por `https://` o `mailto:` | `mailto:`, `rel="noopener noreferrer"`, `target="_blank"` |
+| label | string | requerido, ≤ 30 | — |
+| url | string | requerido, empieza con `https://` o `mailto:` | esquemas de URL, XSS por href |
 
-### SKILL_GROUP (elemento de `skill_groups`)
-| Campo | Tipo | Reglas | Para investigar |
+### skill_group (elemento de `profile.skills`)
+| Campo | Tipo | Parámetros | Para investigar |
 |---|---|---|---|
-| name | string | Obligatorio, ≤ 40 | |
-| items | array de string | 1 a 12 elementos, cada uno ≤ 30 | |
+| group | string | requerido, ≤ 30 | — |
+| items | array de string | requerido, ≥ 1, cada uno ≤ 30 | — |
 
-## c) `src/data/projects.json` (objeto raíz con la clave `projects`)
-### PROJECT (elemento de `projects`)
-| Campo | Tipo | Reglas | Para investigar |
+### projects (archivo `src/data/projects.json`, objeto raíz `{"projects": [...]}`)
+Propósito: lista de proyectos de la sección Proyectos.
+
+| Campo | Tipo | Parámetros | Para investigar |
 |---|---|---|---|
-| id | string | Obligatorio, único, slug en minúsculas `[a-z0-9-]+` | slug |
-| title | string | Obligatorio, ≤ 60 | |
-| summary | string | Obligatorio, ≤ 200 | |
-| tech | array de string | 1 a 8 elementos, cada uno ≤ 24 | |
-| url_repo | string o null | `https://` o null | |
-| url_demo | string o null | `https://` o null | |
-| image | string o null | Ruta relativa bajo `src/assets/img/`, el archivo debe existir | `loading="lazy"`, atributo alt |
-| year | integer | 2000 a 2100 | |
-| order | integer | ≥ 1, único; menor = primero | |
-| featured | boolean | Por defecto false (reservado) | |
+| id | string | requerido, único, kebab-case | — |
+| name | string | requerido, ≤ 60 | — |
+| summary | string | requerido, ≤ 200 | — |
+| tags | array de string | requerido, ≥ 1, cada uno ≤ 20 | — |
+| repo_url | string | requerido, empieza con `https://` | — |
+| demo_url | string o null | default null; si existe, empieza con `https://` | — |
+| order | integer | requerido, ≥ 1; orden ascendente | Array.prototype.sort |
 
-Reservado (nulable): `image` (hasta tener capturas). `featured` es un reservado no nulable con default.
+## d) Reservadas
+Ninguna.
 
-## d) Alcance
-Dos archivos y unas 10 entradas máximo en v1. Sin paginación, ni búsqueda, ni filtros.
+## e) Valores que cambian
+No aplica en v1.
 
-## e) Cómo se carga
-`new URL('../data/<archivo>.json', import.meta.url)` para que funcione bajo la subruta de Pages. Investigar: `import.meta.url`, `fetch`, módulos ES, CORS con `file://` (por eso se usa `http.server` en local).
+## f) Ejemplo mínimo válido
+Ver los JSON que crea `scaffold.sh`.

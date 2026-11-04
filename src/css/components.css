@@ -1,0 +1,24 @@
+/* marco tipo mac; se afina en T03 */
+.window {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.window__bar {
+    display: flex;
+    gap: 6px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.window__bar span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+}
+
+.window__body {
+    padding: 16px 20px;
+}

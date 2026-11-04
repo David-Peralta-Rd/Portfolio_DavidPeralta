@@ -1,16 +1,13 @@
 {
   "projects": [
     {
-      "id": "ejemplo",
-      "title": "Proyecto de ejemplo",
-      "summary": "Pendiente: qué hace y para quién.",
-      "tech": ["Python"],
-      "url_repo": null,
-      "url_demo": null,
-      "image": null,
-      "year": 2026,
-      "order": 1,
-      "featured": false
+      "id": "proyecto-ejemplo",
+      "name": "Proyecto de ejemplo",
+      "summary": "Descripción corta; reemplazar en T04.",
+      "tags": ["python"],
+      "repo_url": "https://github.com/",
+      "demo_url": null,
+      "order": 1
     }
   ]
 }
