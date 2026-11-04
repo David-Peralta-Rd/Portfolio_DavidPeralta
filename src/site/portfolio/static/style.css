@@ -270,3 +270,61 @@ footer { padding-block: 40px 56px; }
   .projects, .stack { grid-template-columns: minmax(0, 1fr); }
   .card, .group { padding: 22px; }
 }
+
+/* ===== Proyectos destacados (top) ===== */
+.card.featured {
+  grid-column: span 2;
+  position: relative;
+  border-width: 2px;
+}
+.badge-top {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 999px;
+  background: var(--accent, #3776ab);
+  color: #fff;
+}
+.lang-icon {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface, #fff);
+  border: 2px solid var(--lang-color, #888);
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+.card.featured:hover .lang-icon { opacity: 1; }
+
+/* ===== Borde animado por lenguaje (solo top) ===== */
+.card.featured.lang-python { --lang-color: #3776ab; }
+.card.featured.lang-javascript { --lang-color: #f7df1e; }
+.card.featured.lang-typescript { --lang-color: #3178c6; }
+.card.featured.lang-rust { --lang-color: #dea584; }
+.card.featured.lang-go { --lang-color: #00add8; }
+.card.featured.lang-java { --lang-color: #ed8b00; }
+.card.featured.lang-cpp { --lang-color: #00599c; }
+.card.featured.lang-default { --lang-color: #888; }
+
+@keyframes lang-border-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--lang-color) 60%, transparent); }
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--lang-color) 25%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--lang-color) 60%, transparent); }
+}
+.card.featured:hover {
+  animation: lang-border-pulse 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card.featured:hover { animation: none; }
+  .lang-icon { transition: none; }
+}
