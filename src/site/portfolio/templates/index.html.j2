@@ -54,16 +54,37 @@
         </div>
       </div>
 
-      <div class="projects">
-        {% for p in projects %}
-        <article class="card sq">
+      {% set featured_projects = projects | selectattr('featured') | list %}
+      {% set regular_projects = projects | rejectattr('featured') | list %}
+      {% if featured_projects %}
+      <div class="projects featured">
+        {% for p in featured_projects %}
+        {% set icon_name = p.icon if p.icon else 'terminal' %}
+        <article class="card sq featured">
           <div class="tag-row">
-            <span class="glyph sq">{{ icon(p.icon) }}</span>
+            <span class="glyph sq">{{ icon(icon_name) }}</span>
             <span class="kind">{{ p.kind }}</span>
           </div>
           <h3>{{ p.title }}</h3>
           <p>{{ p.summary }}</p>
           <div class="chips">{% for t in p.tags %}<span class="chip">{{ t }}</span>{% endfor %}</div>
+          {% if p.url %}<a class="btn sq" href="{{ p.url }}" target="_blank" rel="noopener">Ver proyecto</a>{% endif %}
+        </article>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <div class="projects">
+        {% for p in regular_projects %}
+        {% set icon_name = p.icon if p.icon else 'terminal' %}
+        <article class="card sq">
+          <div class="tag-row">
+            <span class="glyph sq">{{ icon(icon_name) }}</span>
+            <span class="kind">{{ p.kind }}</span>
+          </div>
+          <h3>{{ p.title }}</h3>
+          <p>{{ p.summary }}</p>
+          <div class="chips">{% for t in p.tags %}<span class="chip">{{ t }}</span>{% endfor %}</div>
+          {% if p.url %}<a class="btn sq" href="{{ p.url }}" target="_blank" rel="noopener">Ver proyecto</a>{% endif %}
         </article>
         {% endfor %}
       </div>
