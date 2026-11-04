@@ -1,3 +1,131 @@
-<!doctype html>
-<html lang="es"><head><meta charset="utf-8"><title>{{ profile.name }}</title></head>
-<body><h1>{{ profile.name }}</h1><p>Hola mundo</p></body></html>
+{% extends "base.html.j2" %}
+{% block main %}
+{% macro icon(name) -%}
+{%- if name == 'chat' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg>
+{%- elif name == 'chart' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5M4 19h16"/><path d="M8 15l3-4 3 2 5-6"/></svg>
+{%- elif name == 'terminal' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7l4 4-4 4"/><path d="M12 17h7"/></svg>
+{%- endif -%}
+{%- endmacro %}
+
+  <div class="wrap" id="inicio">
+    <div class="hero">
+      <div class="hero-grid">
+        <div>
+          <span class="status rise"><i></i>{{ profile.status }}</span>
+          <h1 class="rise d1">{{ profile.first_name }}<br><span>{{ profile.last_name }}</span></h1>
+          <p class="lead rise d2">{{ profile.tagline }}</p>
+          <div class="cta rise d3">
+            <a class="btn primary sq" href="#proyectos">Ver proyectos</a>
+            <a class="btn sq" href="#contacto">Escribirme</a>
+          </div>
+        </div>
+
+        <div class="code-card sq rise d2" aria-label="Fragmento de código Python sobre David Peralta">
+          <div class="code-top">
+            <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <span>{{ profile.name|lower|replace(' ', '_') }}.py</span>
+          </div>
+<pre class="code"><span class="k">class</span> <span class="f">{{ profile.name|replace(' ', '') }}</span>(Developer):
+    rol = <span class="s">"Desarrollador Python"</span>
+    enfoque = [
+        <span class="s">"backend"</span>,
+        <span class="s">"IA aplicada"</span>,
+        <span class="s">"datos"</span>,
+    ]
+
+    <span class="k">def</span> <span class="f">construir</span>(self, idea):
+        <span class="c"># simple primero, luego escala</span>
+        <span class="k">return</span> (
+            self.<span class="f">disenar</span>(idea)
+            .<span class="f">probar</span>()
+            .<span class="f">publicar</span>()
+        )</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="proyectos">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Proyectos</div>
+          <h2 style="margin-top:10px">Trabajo seleccionado</h2>
+        </div>
+      </div>
+
+      <div class="projects">
+        {% for p in projects %}
+        <article class="card sq">
+          <div class="tag-row">
+            <span class="glyph sq">{{ icon(p.icon) }}</span>
+            <span class="kind">{{ p.kind }}</span>
+          </div>
+          <h3>{{ p.title }}</h3>
+          <p>{{ p.summary }}</p>
+          <div class="chips">{% for t in p.tags %}<span class="chip">{{ t }}</span>{% endfor %}</div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Stack</div>
+          <h2 style="margin-top:10px">Herramientas que uso</h2>
+        </div>
+      </div>
+      <div class="stack">
+        {% for g in stack %}
+        <div class="group sq">
+          <h3><b></b>{{ g.group }}</h3>
+          <div class="chips">{% for item in g['items'] %}<span class="chip">{{ item }}</span>{% endfor %}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre-mi">
+    <div class="wrap">
+      <div class="about">
+        <div>
+          <div class="eyebrow">Sobre mí</div>
+          <h2 style="margin-top:10px">{{ about.heading }}</h2>
+        </div>
+        <div>
+          <div class="body">
+            {% for para in about.paragraphs %}<p>{{ para|safe }}</p>{% endfor %}
+          </div>
+          <div class="facts">
+            {% for f in facts %}<div class="fact"><b>{{ f.value }}</b><span>{{ f.label }}</span></div>{% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="wrap">
+      <div class="contact sq">
+        <div>
+          <div class="eyebrow">Contacto</div>
+          <h2 style="margin-top:10px">Hablemos de tu próximo proyecto</h2>
+          <p>Cuéntame qué necesitas construir y te respondo con una propuesta clara de cómo abordarlo.</p>
+        </div>
+        <div>
+          <div class="mail-row">
+            <span class="mail sq" id="mail">{{ profile.email }}</span>
+            <button class="btn sq copy" id="copy" type="button">Copiar</button>
+          </div>
+          <div class="social">
+            {% for l in links %}<a class="btn sq" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
