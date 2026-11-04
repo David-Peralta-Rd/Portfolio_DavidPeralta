@@ -47,6 +47,7 @@ Propósito: tarjetas de proyectos (3 en v1, grilla de 3 columnas).
 | icon | string | uno de `chat`, `chart`, `terminal` | macros de Jinja2 |
 | tags | array de string | 1–5 elementos | — |
 | url | string | opcional (reservada, nula) | enlaces en tarjetas |
+| featured | bool | sirve para mostrar que proyectos son los destacados
 
 ## stack (array `[[stack]]`)
 Propósito: grupos de herramientas.

@@ -24,6 +24,7 @@ summary = "Entorno Linux para Hyprland (CachyOS/Arch) con instalación en un com
 icon = ""
 tags = ["Bash", "Lua", "QML", "llama.cpp"]
 url = "https://github.com/David-Peralta-Rd/MinimalistDots"
+featured = false
 
 [[projects]]
 title = "MercyVentas"
@@ -31,7 +32,8 @@ kind = "Backend · Inventario y ventas (en desarrollo)"
 summary = "Sistema de inventario, compras y ventas con backend y frontend desacoplados, orquestados con Docker Compose. Infraestructura y modelo de datos listos; la lógica de negocio está en construcción."
 icon = ""
 tags = ["Django", "Django Ninja", "PostgreSQL", "Docker"]
-url = "https://github.com/David-Peralta-Rd/E-commerce-MercyVentas"
+url = "https://github.com/David-Peralta-Rd/B2C_MercyVentas_DavidPeralta"
+featured = true
 
 [[projects]]
 title = "E-commerce SENA"
@@ -40,6 +42,7 @@ summary = "Proyecto de grado del SENA: sistema de compras y ventas con comproban
 icon = ""
 tags = ["Python", "Django", "PostgreSQL"]
 url = "https://github.com/David-Peralta-Rd/Ecommerce-Project-for-Work-at-Sena"
+featured = false
 
 [[stack]]
 group = "Backend"
