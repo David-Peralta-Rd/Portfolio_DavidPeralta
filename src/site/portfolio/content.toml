@@ -25,6 +25,7 @@ icon = ""
 tags = ["Bash", "Lua", "QML", "llama.cpp"]
 url = "https://github.com/David-Peralta-Rd/MinimalistDots"
 featured = false
+language = "Bash"
 
 [[projects]]
 title = "MercyVentas"
@@ -34,6 +35,7 @@ icon = ""
 tags = ["Django", "Django Ninja", "PostgreSQL", "Docker"]
 url = "https://github.com/David-Peralta-Rd/B2C_MercyVentas_DavidPeralta"
 featured = true
+language = "Python"
 
 [[projects]]
 title = "E-commerce SENA"
@@ -43,6 +45,7 @@ icon = ""
 tags = ["Python", "Django", "PostgreSQL"]
 url = "https://github.com/David-Peralta-Rd/Ecommerce-Project-for-Work-at-Sena"
 featured = false
+language = "Python"
 
 [[stack]]
 group = "Backend"
