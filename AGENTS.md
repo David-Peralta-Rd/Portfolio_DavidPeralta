@@ -1,34 +1,48 @@
 # AGENTS.md — Portfolio_DavidPeralta
 
 ## Proyecto
-<una línea: qué es y para quién>
+Portafolio para programador David Peralta Backend IA
 
 ## Stack
-<lenguaje, framework, base de datos y versión de cada uno>
+- Python 3.15 + uv. Sitio estático: Jinja2 genera `src/site/dist/`; se publica en GitHub Pages.
+- Sin backend, BD ni Docker. Calidad: pytest, ruff, mypy.
 
 ## Comandos
-- Instalar: <comando>
-- Test: <comando>
-- Lint y tipos: <comando>
-- Levantar local: `docker compose up`
+- Build: `cd src/site && uv run build`
+- Desarrollo con recarga: `cd src/site && uv run serve` (http://localhost:8000)
+- Test: `cd src/site && uv run pytest -q -x`
+- Lint: `cd src/site && uv run ruff check --output-format concise .`
+- Tipos: `cd src/site && uv run mypy portfolio`
+- Comandos nuevos: `[project.scripts]` en `src/site/pyproject.toml` + `cli.py`
 
-## Convenciones
-- Commits convencionales; una tarea por rama.
-- Toda función nueva trae su test en el mismo cambio.
-- Nada de lógica de negocio en los controladores/rutas: va en servicios.
-
-## Estilo (Python; borra esta sección si el proyecto no lo es)
-- Responde en español; código conciso, sin explicaciones largas salvo que se pidan.
-- Type hints completos (parámetros, retornos incluido `-> None`, variables no obvias); que pase Pylance en modo strict. Nada de `Any` salvo necesidad, con un comentario corto del porqué.
-- Genéricos de `typing` modernos (`list[str]`, `dict[str, int]`); dataclasses o Pydantic en vez de diccionarios sueltos.
-- Nombres explícitos; `pathlib.Path` en vez de `os.path`.
-- Tests con pytest (funciones `test_*`, fixtures), nunca `unittest.TestCase`.
-- Sigue el estilo del archivo abierto; no reformatees lo que no te pedí tocar.
+## Estructura
+- Código: `src/site/portfolio/` (cli.py, content.py, render.py, templates/, static/, content.toml)
+- Tests: `src/site/tests/`. Esquema de datos: `docs/DATA_MODEL.md`. Referencia visual: `docs/reference/`.
 
 ## Nunca
-- Tocar migraciones ya aplicadas, secretos o archivos `.env`.
-- Instalar dependencias sin explicar por qué.
-- Cambiar autenticación, permisos o manejo de pagos sin que la tarea esté marcada [YO] y revisada por el humano.
+- Crear a mano lo que un generador produce (`uv init`, `uv add`, `uv lock`).
+- Crear código o scripts fuera de `src/`. Sin Docker.
+- Poner lógica de negocio en cli.py. Usar rutas absolutas (`/...`) en el HTML.
+- Pinear versiones de paquetes a mano ni usar pre-releases.
+- Hacer commit ni push. Editar tasks.md. Tocar archivos fuera de la columna "Archivos que toca".
+- Leer ni imprimir `uv.lock`, `.venv` ni `dist`.
+- Ejecutar `uv add` salvo que la tarea lo pida. Dejar un proceso en primer plano.
+
+## Estilo (Python)
+(conserva aquí la sección de la plantilla)
+
+## Cómo trabajas (modo delegado)
+
+Trabajas sin supervisión inmediata: nadie contesta preguntas mientras corres. Decide con lo que dicen SPEC.md, tasks.md y este archivo, y si algo no está claro, para y repórtalo.
+
+1. Lee SOLO la fila de tu tarea en `tasks.md` (`grep -n '^| T04 ' tasks.md`) y los documentos o secciones que esa fila cita. No leas `SPEC.md` entero ni explores el árbol (`ls -R`, `find`): usa las rutas de la tarea.
+2. Haz ÚNICAMENTE la tarea que te pidan por ID y solo si está marcada [DELEGAR]. Nunca una [YO]. No adelantes tareas siguientes.
+3. Toca SOLO los archivos de la columna "Archivos que toca". Si necesitas otro, para y dilo.
+4. Escribe un plan de máximo 3 líneas y continúa sin esperar respuesta.
+5. Implementa. Después corre el comando de "Verificación (agente)" de la tarea y `cd src/site && uv run pytest -q -x`, `cd src/site && uv run ruff check --output-format concise .`, `cd src/site && uv run mypy portfolio`. No releas archivos que ya leíste. Si un comando puede imprimir mucho, usa sus opciones de salida corta (`-q`, `-x`, `--output-format concise`).
+6. Si algo falla: corrige y reintenta, máximo 3 veces. Si sigue fallando, PARA y reporta el comando exacto y su salida. No cambies tests para que pasen ni toques nada más.
+7. No hagas commit ni push. No instales dependencias salvo que la tarea lo pida. No edites tasks.md: marcar la tarea como hecha lo hago yo al revisar el diff.
+8. Al terminar responde en 10 líneas como máximo: tarea (ID), archivos cambiados, resultado de cada comando (ok / falla) y dudas o decisiones que tomaste. No pegues código ni el diff: lo reviso con git.
 
 ## Cómo trabajas
 1. Lee `SPEC.md` y `tasks.md`.
