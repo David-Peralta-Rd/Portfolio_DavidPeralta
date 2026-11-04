@@ -35,6 +35,24 @@ Ideas y mejoras futuras. Las tareas concretas se añaden a `tasks.md` por el man
 - Modo de alto contraste.
 - Analítica privacy-first (Plausible/Umami).
 
+## Prioridad alta (nuevo)
+
+### Carrusel / límite de proyectos en pantalla
+- Mostrar como máximo 6 proyectos destacados (top) y 10 normales a la vez.
+- Carrusel ligero en `static/main.js` (sin dependencias): rotación automática cada N segundos, pausa al hover/foco, puntos (dots) como control manual, `aria-live` para accesibilidad.
+- Mantener la regla de no `href="/"` ni `src="/"` (T11).
+
+### Estilo visual más destacado para proyectos top
+- Tarjeta más grande (2 columnas), borde/acento diferenciado y badge "Top".
+- Ajustar `static/style.css` sin cambiar valores existentes (solo añadir reglas nuevas).
+
+### Animación de borde por lenguaje (solo proyectos top)
+- Añadir campo `language` a `[[projects]]` (Python, JavaScript, Rust, Go, etc.) en `docs/DATA_MODEL.md` y `content.toml`.
+- Al hacer hover sobre una tarjeta top, animar el borde con los colores del lenguaje y mostrar el icono del lenguaje centrado en la parte superior de la tarjeta.
+- Preparar paleta/icono para varios lenguajes aunque no se usen todos desde el inicio.
+- Implementar con CSS (variables por lenguaje) + un poco de JS para aplicar la clase según `language`.
+
+
 ## Nota de alcance
 - Los cambios de modelo de datos (`DATA_MODEL.md`) y `content.toml` los decide el mantenedor (etiqueta [YO]).
 - El agente solo toca archivos listados en la columna "Archivos que toca" de cada tarea.

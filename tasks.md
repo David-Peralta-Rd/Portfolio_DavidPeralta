@@ -26,3 +26,8 @@ Lanzar: opencode run "Haz la tarea Txx de tasks.md"
 | T16 | [YO] | Decide textos/URLs finales de proyectos y rellena url en content.toml. | src/site/portfolio/content.toml | — |
 | T17 | [DELEGAR] | Añade enlace "Ver proyecto" en cada tarjeta usando p.url (solo si existe), target="_blank" rel="noopener". | src/site/portfolio/templates/index.html.j2	cd src/site && uv run pytest -q -x tests/test_paths.py | — |
 | T18 | [DELEGAR] | Test: render con un proyecto featured=true contiene la sección destacada y el enlace externo. | src/site/tests/test_render.py | cd src/site && uv run pytest -q -x tests/test_render.py |
+| T19 | [YO] | Decide límites (top 6, normales 10) y añade `language` a `[[projects]]` en DATA_MODEL y content.toml. | docs/DATA_MODEL.md, src/site/portfolio/content.toml |
+| T20 | [DELEGAR] | CSS: tarjeta top más grande, badge "Top", borde animado por lenguaje con variables/icono. | src/site/portfolio/static/style.css |
+| T21 | [DELEGAR] | JS: carrusel de proyectos (auto-rotación, pausa, dots, aria-live). | src/site/portfolio/static/main.js |
+| T22 | [DELEGAR] | Template: aplicar clase por `language` y renderizar badge "Top". | src/site/portfolio/templates/index.html.j2 |
+| T23 | [DELEGAR] | Tests: render con `language` y verificación de clases. | src/site/tests/test_render.py |
