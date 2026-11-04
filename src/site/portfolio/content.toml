@@ -1,2 +1,74 @@
 [profile]
 name = "David Peralta"
+first_name = "David"
+last_name = "Peralta"
+initials = "DP"
+status = "Disponibilidad inmediata"
+tagline = "Backend con Python, Docker y Linux, y la IA aplicada a problemas reales de ingeniería."
+email = "crdavidperalta@gmail.com"
+site_year = 1
+footer_note = "Developed by @David-Peralta-Rd"
+
+[[links]]
+label = "GitHub"
+url = "https://github.com/David-Peralta-Rd"
+
+[[links]]
+label = "LinkedIn"
+url = "https://linkedin.com/in/david-peralta-380652366"
+
+[[projects]]
+title = "MinimalistDots"
+kind = "Linux · IA local"
+summary = "Entorno Linux para Hyprland (CachyOS/Arch) con instalación en un comando y una capa de IA que ejecuta un modelo de 30B en CPU, lo expone con una API compatible con OpenAI y lo conecta a agentes de código."
+icon = ""
+tags = ["Bash", "Lua", "QML", "llama.cpp"]
+url = "https://github.com/David-Peralta-Rd/MinimalistDots"
+
+[[projects]]
+title = "MercyVentas"
+kind = "Backend · Inventario y ventas (en desarrollo)"
+summary = "Sistema de inventario, compras y ventas con backend y frontend desacoplados, orquestados con Docker Compose. Infraestructura y modelo de datos listos; la lógica de negocio está en construcción."
+icon = ""
+tags = ["Django", "Django Ninja", "PostgreSQL", "Docker"]
+url = "https://github.com/David-Peralta-Rd/E-commerce-MercyVentas"
+
+[[projects]]
+title = "E-commerce SENA"
+kind = "Proyecto de grado"
+summary = "Proyecto de grado del SENA: sistema de compras y ventas con comprobantes, registro de usuarios, administración y base de datos."
+icon = ""
+tags = ["Python", "Django", "PostgreSQL"]
+url = "https://github.com/David-Peralta-Rd/Ecommerce-Project-for-Work-at-Sena"
+
+[[stack]]
+group = "Backend"
+items = ["Python", "Django", "Django Ninja", "PostgreSQL", "SQL"]
+
+[[stack]]
+group = "DevOps y Linux"
+items = ["Docker", "Docker Compose", "Linux", "Bash", "Git", "uv"]
+
+[[stack]]
+group = "IA aplicada"
+items = ["llama.cpp", "Copilot Agents", "Prompt engineering", "OpenCode"]
+
+[about]
+heading = "Desarrollador Backend · Python · IA aplicada"
+paragraphs = [
+    "Soy desarrollador backend con Python, Django y PostgreSQL. Diseño servicios desacoplados, los empaqueto con Docker y los opero sobre Linux.",
+    "Mi diferenciador es la IA aplicada: en SoftwareOne diseñé agentes que aceleraron la documentación técnica y gané el reto interno de IA de la región Bogotá. En casa ejecuto modelos de 30B con llama.cpp y los uso como parte de mi flujo de desarrollo.",
+    "Soy Tecnólogo en Análisis y Desarrollo de Software del SENA (2026) y busco mi primer rol backend en Bogotá, presencial o híbrido."
+]
+
+[[facts]]
+value = "IA aplicada"
+label = "Trabajo junto a agentes de inteligencia artificial"
+
+[[facts]]
+value = "Linux diario"
+label = "Sistema principal desde marzo de 2025, sin máquinas virtuales"
+
+[[facts]]
+value = "Docker"
+label = "Builds multi-stage y entornos aislados"
