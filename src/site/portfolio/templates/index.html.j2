@@ -60,7 +60,9 @@
       <div class="projects featured">
         {% for p in featured_projects %}
         {% set icon_name = p.icon if p.icon else 'terminal' %}
-        <article class="card sq featured">
+        <article class="card sq featured lang-{{ p.language|default('default')|lower }}">
+          <span class="badge-top">Top</span>
+          <span class="lang-icon" aria-hidden="true">{{ p.language|default('') }}</span>
           <div class="tag-row">
             <span class="glyph sq">{{ icon(icon_name) }}</span>
             <span class="kind">{{ p.kind }}</span>
@@ -76,7 +78,7 @@
       <div class="projects">
         {% for p in regular_projects %}
         {% set icon_name = p.icon if p.icon else 'terminal' %}
-        <article class="card sq">
+        <article class="card sq lang-{{ p.language|default('default')|lower }}">
           <div class="tag-row">
             <span class="glyph sq">{{ icon(icon_name) }}</span>
             <span class="kind">{{ p.kind }}</span>

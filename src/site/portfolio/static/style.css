@@ -188,13 +188,13 @@ pre.code {
 .k { color: var(--code-kw); } .s { color: var(--code-str); } .f { color: var(--code-fn); } .c { color: var(--code-muted); }
 
 /* Sections */
-section { padding-block: clamp(40px, 6vw, 72px); scroll-margin-top: 72px; }
+section { padding-block: clamp(56px, 7vw, 96px); scroll-margin-top: 72px; }
 .sec-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; margin-bottom: 32px; }
 .eyebrow { font-family: var(--font-mono); font-size: 12.5px; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
 h2 { font-size: clamp(1.7rem, 3.6vw, 2.4rem); }
 .note { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
 
-.projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-block: 16px; }
 .card {
   background: var(--surface); border: 1px solid var(--line);
   border-radius: var(--r-lg); padding: 28px;
@@ -272,10 +272,13 @@ footer { padding-block: 40px 56px; }
 }
 
 /* ===== Proyectos destacados (top) ===== */
+.projects.featured {
+  margin-bottom: 12px;
+}
 .card.featured {
-  grid-column: span 2;
   position: relative;
-  border-width: 2px;
+  border-width: 1px;
+  padding: 30px;
 }
 .badge-top {
   position: absolute;
@@ -290,16 +293,22 @@ footer { padding-block: 40px 56px; }
 }
 .lang-icon {
   position: absolute;
-  top: -18px;
+  top: -14px;
   left: 50%;
   transform: translateX(-50%);
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  min-width: max-content;
+  border-radius: 999px;
   background: var(--surface, #fff);
   border: 2px solid var(--lang-color, #888);
+  color: var(--lang-color, #888);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
   opacity: 0;
   transition: opacity .2s ease;
 }
